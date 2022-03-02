@@ -22,32 +22,33 @@ const ADD_LINK_NO_SLUG = gql`
 
 export default function LinkCreator() {
   let [newSlug, setNewSlug] = useState("");
+  const [copySlug, setCopySlug] = useState("")
   let newUrl, slug;
 
   // state for the clipboard
   const [toCopy, setToCopy] = useState({
     value: '',
-    copied: true
+    copied: false
   });
-  console.log("toCopyState", toCopy)
+  const BASE_URL = 'http://localhost:4000/'
+  const urlToCopy = BASE_URL + copySlug;
+  console.log("urlToCopy", urlToCopy)
 
-  const [createLink, {errorSlug}] = useMutation(ADD_LINK);
-  const [createLinkNoSlug, {error}] = useMutation(ADD_LINK_NO_SLUG);
-  if (error) return `Submission error! ${error.message}`;
-  if (errorSlug) return `Submission error! ${error.message}`;
-  console.log("newUrl", newUrl)
+  const [createLink] = useMutation(ADD_LINK);
+  const [createLinkNoSlug] = useMutation(ADD_LINK_NO_SLUG);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (newSlug !== "") {
       createLink({ variables : { url: newUrl.value , slug: newSlug.value } })
+        .then(({data}) => setCopySlug(data.createLink.slug))
       setNewSlug("")
       setToCopy({ ...toCopy, copied: true}, 5000)
     }
     if (!newSlug && newUrl !== "") {
       createLinkNoSlug({ variables: { url: newUrl.value }})
-      setNewSlug("");
-      setToCopy({ ...toCopy, copied: true})
+        .then(({data}) => setNewSlug(data.createLink.slug))
+      setToCopy({ value: urlToCopy, copied: true})
     }
   }
 
@@ -85,7 +86,9 @@ export default function LinkCreator() {
       </form>
       <div className="flex justify-center">
         {toCopy.copied ? 
-            <button className="bg-green-400 hover:bg-green-700 hover:scale-110 text-white font-bold rounded shadow-md mt-3 py-2 px-10">Copy New URL</button>
+            <CopyToClipboard text={`${urlToCopy}`}>
+              <button className="bg-green-400 hover:bg-green-700 hover:scale-110 text-white font-bold rounded shadow-md mt-3 py-2 px-10">Copy New URL</button>
+            </CopyToClipboard>
             : null
           }
       </div>

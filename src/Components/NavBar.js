@@ -1,9 +1,7 @@
 import React from "react";
 
-import { AiOutlineMenu } from 'react-icons/ai'
-
 export default function NavBar() {
-  const navItems = ["Home", "About", "Sign In"]
+  const navItems = ["FakeBrand", "About", "Sign In"]
 
   return (
     <div className="mb-2 mt-2">
@@ -15,7 +13,7 @@ export default function NavBar() {
             </a>
           </li>
         })}
-        <li className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline shadow-md" >Get a quote</li>
+        <li className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline shadow-md">Get a quote</li>
       </ul>
     </div>
   )
