@@ -4,25 +4,19 @@ import Dude from '../images/dude.png'
 export default function Hero() {
   
   return (
-    <div className="flex flex-row grid-rows-2">
-      <div className="grid-rows-2">
-        <div className="x-1">
-          <h1 className="text-3xl font-bold">Your Brand On Your Links</h1>
-          <p className="mt-5 break-normal">FakeBrand is the industry-leading link management platform to brand, track and share short URLs using a custom domain name</p>
-        </div>
+    <div className="flex flex-row mx-5 my-5">
+      <div className="flex flex-col max-width-12 gap-y-20 mr-20">
         <div>
-          <h3>Join our mailing list!</h3>
-          <form flex>
-            <input  
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline max-w-xs mr-2 mt-10"
-              type="text"
-              placeholder="your email"
-            />
-            <button class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">I'm in!</button>
-          </form>
+          <h1 className="text-5xl font-bold">Your Brand On Your Links</h1>
+          <p className="mt-5 x-1">FakeBrand is the industry-leading link management platform to brand, track and share short URLs using a custom domain name</p>
+        </div>
+        <div className="flex justify-center">
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-5 my-5 rounded shadow-md  hover:scale-110 hover:shadow-lg">Sing Up For Free</button>
+          <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 mx-5 my-5 rounded shadow-md  hover:scale-110 hover:shadow-lg">Sing Up For Free</button>
         </div>
       </div>
-      <div className="pl-50">
+
+      <div className="ml-50">
         <img src={Dude} alt=""/>
       </div>
     </div>

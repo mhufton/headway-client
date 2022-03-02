@@ -18,12 +18,12 @@ export default function LinkList() {
   if (error) return `Error! ${error.message}`;
   
   return (
-    <div className="flex flex-col bg-gray-100">
+    <div className="flex flex-col">
       {
         data.links.map((link, index) => {
           return <p 
             key={index}
-            className="justify-center align-center"
+            className="flex justify-center align-center p-1"
           >
             {link.url} --- {link.slug}
           </p>
