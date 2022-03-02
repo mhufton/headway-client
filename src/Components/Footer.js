@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <div className="bg-sky-800 mt-10 py-3 flex flex-row justify-center">
-      <div className="text-white text-left flex flex-row justify-start">
+    <div className="bg-sky-800 mt-10 py-3 flex flex-row place-content-evenly">
+      <div className="text-white text-left flex">
         <p className="mr-10">Terms & Conditions</p>
         <p className="mr-10">Privacy Policy</p>
-        <p className="mr-10">Cookie Policy</p>
+        <p>Cookie Policy</p>
       </div>
-      <div className="flex justify-end">
+      <div>
         <p className="text-white">Copyright 3030</p>
       </div>
     </div>

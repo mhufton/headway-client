@@ -4,7 +4,7 @@ import Dude from '../images/dude.png'
 export default function Hero() {
   
   return (
-    <div className="flex flex-row mx-5 my-5">
+    <div className="flex flex-row justify-center mx-5 my-1">
       <div className="flex flex-col max-width-12 gap-y-20 mr-20">
         <div>
           <h1 className="text-5xl font-bold">Your Brand On Your Links</h1>
