@@ -7,7 +7,7 @@ export default function NavBar() {
 
   return (
     <div className="mb-2 mt-2">
-      <ul className="flex flex-row space-x-2 text-xl pt-1 justify-center text-color-white">
+      <ul className="flex flex-row space-x-20 text-xl pt-1 justify-center text-color-white">
         {navItems.map((item, index) => {
           return <li className="list-none" key={index}>
             <a href={`BASE_URL/{item}`}>
