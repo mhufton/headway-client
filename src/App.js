@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+
+import NavBar from "./Components/NavBar";
+import LinkCreator from "./Components/LinkCreator";
+import LinkList from "./Components/LinkList";
+import Hero from "./Components/Hero";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col max-width-screen-2xl p-5">
+      <div>
+        <NavBar />
+      </div>
+      <div className="mb-5">
+        <Hero />
+      </div>
+      <div className="align-center">
+        <LinkCreator />
+      </div>
+      <div>
+        <LinkList />
+      </div>
     </div>
   );
 }
 
 export default App;
+
