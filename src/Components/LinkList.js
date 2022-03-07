@@ -2,16 +2,8 @@ import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { AiOutlineCopy, AiOutlineSend } from 'react-icons/ai'
-import { shortenUrl } from "../utils/api";
+import { shortenUrl, GET_LINKS } from "../utils/api";
 
-const GET_LINKS = gql`
-  query Links{
-    links {
-      url
-      slug
-    }
-  }
-`
 
 export default function LinkList() {
   // const [hover, setHover] = React.useState(false);

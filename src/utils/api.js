@@ -1,15 +1,47 @@
+import { gql, useQuery, useMutation } from "@apollo/client";
+
 /**
  * 
  * Simple function to shorten the url lengths
  * 
  * @params url
  *  the long url provided for shortening
- * @parms num
- *  the number of char to trim the string by
- * @returns string trimmed to 25 chars long
+ * @parms n
+ *  the number of chars to trim the string by
+ * @returns string trimmed to n chars long
  *
  */
 
-export function shortenUrl(url, num) {
-  return url.slice(0, num)
+export function shortenUrl(url, n) {
+  return url.slice(0, n)
 }
+
+// query to return 10 links 
+export const GET_LINKS = gql`
+  query Links{
+    links {
+      url
+      slug
+    }
+  }
+`
+
+// creates a short url if a custom slug HAS been provided
+export const ADD_LINK = gql`
+  mutation CreateLink($url: String!, $slug: String!) {
+    createLink(url: $url, slug: $slug) {
+      url
+      slug
+    }
+  }
+`
+
+// creates a short url with a randomly genereated slug
+export const ADD_LINK_NO_SLUG = gql`
+  mutation CreateLink($url: String!) {
+    createLink(url: $url) {
+      url
+      slug
+    }
+  }
+`
