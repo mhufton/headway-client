@@ -28,18 +28,8 @@ export const GET_LINKS = gql`
 
 // creates a short url if a custom slug HAS been provided
 export const ADD_LINK = gql`
-  mutation CreateLink($url: String!, $slug: String!) {
+  mutation CreateLink($url: String!, $slug: String) {
     createLink(url: $url, slug: $slug) {
-      url
-      slug
-    }
-  }
-`
-
-// creates a short url with a randomly genereated slug
-export const ADD_LINK_NO_SLUG = gql`
-  mutation CreateLink($url: String!) {
-    createLink(url: $url) {
       url
       slug
     }

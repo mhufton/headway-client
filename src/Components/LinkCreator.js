@@ -4,9 +4,9 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { ADD_LINK, ADD_LINK_NO_SLUG, GET_LINKS } from '../utils/api'
 
 export default function LinkCreator() {
-  let [newSlug, setNewSlug] = useState("");
+  // let [newSlug, setNewSlug] = useState("");
   const [copySlug, setCopySlug] = useState("")
-  let newUrl, slug;
+  let newUrl, newSlug;
 
   // state for the clipboard
   const [toCopy, setToCopy] = useState({
@@ -17,23 +17,31 @@ export default function LinkCreator() {
   const BASE_URL = 'http://localhost:4000/'
   const urlToCopy = BASE_URL + copySlug;
 
-  const [createLink] = useMutation(ADD_LINK);
-  const [createLinkNoSlug] = useMutation(ADD_LINK_NO_SLUG);
+  const [createLink] = useMutation
+    (ADD_LINK,
+      {
+        refetchQueries: [
+          { query: GET_LINKS }
+        ]
+      }
+    );
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (newSlug !== "") {
-      createLink({ variables : { url: newUrl.value , slug: newSlug.value } })
-        .then(({data}) => setCopySlug(data.createLink.slug))
-
-      setNewSlug("")
-      setToCopy({ ...toCopy, copied: true}, 5000)
-    }
-    if (!newSlug && newUrl !== "") {
-      createLinkNoSlug({ variables: { url: newUrl.value }})
-        .then(({data}) => setNewSlug(data.createLink.slug))
-      setToCopy({ value: urlToCopy, copied: true})
-    }
+    // if (newSlug !== "") {
+    //   createLink({ variables : { url: newUrl.value , slug: newSlug.value } })
+    //     .then(({data}) => setCopySlug(data.createLink.slug))
+    //   // setNewSlug("")
+    //   setToCopy({ ...toCopy, copied: true}, 5000)
+    // }
+    // if (!newSlug && newUrl !== "") {
+    //   createLinkNoSlug({ variables: { url: newUrl.value }})
+    //     .then(({data}) => setNewSlug(data.createLink.slug))
+    //   setToCopy({ value: urlToCopy, copied: true})
+    // }
+    createLink({ variables : { url: newUrl.value, slug: newSlug.value } })
+      .then(({data}) => setCopySlug(data.createLink.slug));
+    setToCopy({ ...toCopy, copied: true})
   }
 
   return (
@@ -45,14 +53,14 @@ export default function LinkCreator() {
             ref={value => newUrl = value}
             placeholder="URL here"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline max-w-xs mr-2 x-4"
-          ></input>
+          />
         </label>
         <label className="mx-2">
           <input 
             type="text"
             ref={value => newSlug = value}
             placeholder="custom slug"
-            onChange={({ target }) => setNewSlug(target.value)}
+            // onChange={({ target }) => setNewSlug(target.value)}
             minLength="4"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline max-w-xs mr-2"
           />
