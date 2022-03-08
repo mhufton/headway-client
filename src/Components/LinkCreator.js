@@ -4,10 +4,11 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { ADD_LINK, ADD_LINK_NO_SLUG, GET_LINKS } from '../utils/api'
 
 export default function LinkCreator() {
-  // let [newSlug, setNewSlug] = useState("");
   const [copySlug, setCopySlug] = useState("")
-  let newUrl, newSlug;
-
+  const [urlData, setUrlData] = useState({
+    url: '',
+    slug: null
+  })
   // state for the clipboard
   const [toCopy, setToCopy] = useState({
     value: '',
@@ -26,21 +27,18 @@ export default function LinkCreator() {
       }
     );
 
+  const changeHandler = (e) => {
+    e.preventDefault();
+    setUrlData({
+      [e.target.name]: e.target.value
+    })
+  }
+
   const submitHandler = (e) => {
     e.preventDefault();
-    // if (newSlug !== "") {
-    //   createLink({ variables : { url: newUrl.value , slug: newSlug.value } })
-    //     .then(({data}) => setCopySlug(data.createLink.slug))
-    //   // setNewSlug("")
-    //   setToCopy({ ...toCopy, copied: true}, 5000)
-    // }
-    // if (!newSlug && newUrl !== "") {
-    //   createLinkNoSlug({ variables: { url: newUrl.value }})
-    //     .then(({data}) => setNewSlug(data.createLink.slug))
-    //   setToCopy({ value: urlToCopy, copied: true})
-    // }
-    createLink({ variables : { url: newUrl.value, slug: newSlug.value } })
-      .then(({data}) => setCopySlug(data.createLink.slug));
+    createLink({ variables : { url: urlData.url, slug: urlData.slug } })
+      .then(({data}) => setCopySlug(data.createLink.slug))
+      .then(() => setUrlData({ url: "", slug: null }))
     setToCopy({ ...toCopy, copied: true})
   }
 
@@ -50,7 +48,8 @@ export default function LinkCreator() {
         <label className="mx-2">
           <input 
             type="text"
-            ref={value => newUrl = value}
+            name="url"
+            onChange={changeHandler}
             placeholder="URL here"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline max-w-xs mr-2 x-4"
           />
@@ -58,9 +57,9 @@ export default function LinkCreator() {
         <label className="mx-2">
           <input 
             type="text"
-            ref={value => newSlug = value}
+            name="slug"
+            onChange={changeHandler}
             placeholder="custom slug"
-            // onChange={({ target }) => setNewSlug(target.value)}
             minLength="4"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline max-w-xs mr-2"
           />
